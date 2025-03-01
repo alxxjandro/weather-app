@@ -44,6 +44,14 @@ export const createSearchForm = () => {
       if (previous) {
         previous.remove();
       }
+
+      const loadingElement = document.createElement("div");
+      loadingElement.innerText = "Loading...";
+      loadingElement.id = "loading";
+      document.body.appendChild(loadingElement);
+
+      setTimeout(() => {}, "2000"); //in order to display de loading text
+
       try {
         const weatherElement = await getWeather(input.value);
         document.body.appendChild(weatherElement);
@@ -51,6 +59,8 @@ export const createSearchForm = () => {
         alert("Please try searching for a different city!");
         console.error(e);
         return;
+      } finally {
+        document.body.removeChild(loadingElement);
       }
     }
   });
@@ -118,5 +128,8 @@ const getWeather = async (formValue) => {
 
   return divContainer;
 };
+
+const defaultWeather = await getWeather("Guadalajara");
+document.body.appendChild(defaultWeather);
 
 export default createSearchForm;
