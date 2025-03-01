@@ -1,4 +1,28 @@
-#imagen {
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.SearchBarDiv{
   border: solid 1px red;
-  width: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10vh;
+}
+
+/* the form itself */
+.SearchBarDiv > form  {
+  min-width: 50%;
+  border: solid 1px blue;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#searchBar{
+  padding: .5rem;
+  border-radius: 8px;
+  border: solid 2px black;
+  min-width: 300px;
 }
