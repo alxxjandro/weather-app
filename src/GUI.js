@@ -4,7 +4,9 @@ import { findIcon } from "./icons.js";
 import icons from "./icons.js";
 
 export const createSearchForm = () => {
-  const div = Object.assign(document.createElement("div"), { className: "SearchBarDiv"});
+  const div = Object.assign(document.createElement("div"), {
+    className: "SearchBarDiv",
+  });
   const form = Object.assign(document.createElement("form"), {
     action: "#",
   });
@@ -13,7 +15,9 @@ export const createSearchForm = () => {
     for: "searchBar",
   });
 
-  const searchIcon = Object.assign(document.createElement("img"), { src: icons.search });
+  const searchIcon = Object.assign(document.createElement("img"), {
+    src: icons.search,
+  });
   const input = Object.assign(document.createElement("input"), {
     type: "text",
     name: "searchBar",
@@ -29,19 +33,21 @@ export const createSearchForm = () => {
     id: "submitBtn",
     name: "submitBtn",
   });
-  button.appendChild(searchIcon)
+  button.appendChild(searchIcon);
 
   //handle the event listener for the submit btn
   button.addEventListener("click", async (e) => {
     e.preventDefault();
 
     let previous = document.querySelector(".weatherInfoContainer");
-    if(input.value){
-      if (previous) { previous.remove() };
-      try{
-        const weatherElement = await getWeather(input.value); 
+    if (input.value) {
+      if (previous) {
+        previous.remove();
+      }
+      try {
+        const weatherElement = await getWeather(input.value);
         document.body.appendChild(weatherElement);
-      } catch(e){
+      } catch (e) {
         alert("Please try searching for a different city!");
         console.error(e);
         return;
@@ -75,37 +81,36 @@ const getWeather = async (formValue) => {
   divContainer.append(
     createElement("h1", "cityName", info[0]),
     leftDiv,
-    rightDiv
+    rightDiv,
   );
-  
-  let weather = document.createElement("div");
-  let degrees = Object.assign(document.createElement("span"), {className: "temperature"});
-  degrees.append(createElement("h1", "temp", info[3]))
-  degrees.append(createElement("p","a","C"))
 
-  weather.append(
-    degrees,
-    createElement("p", "conditions", info[4])
-  )
+  let weather = document.createElement("div");
+  let degrees = Object.assign(document.createElement("span"), {
+    className: "temperature",
+  });
+  degrees.append(createElement("h1", "temp", info[3]));
+  degrees.append(createElement("p", "a", "C"));
+
+  weather.append(degrees, createElement("p", "conditions", info[4]));
   leftDiv.append(
     createElement("p", "date", format(new Date(), "EEE, MMM d ")),
     createElement("img", "iconImage", "", findIcon(info[2])),
-    weather
+    weather,
   );
 
-  let rightInfo = ["Humidity","Visibility","Wind"];
-  let units = ["%","KM","KPH"]
+  let rightInfo = ["Humidity", "Visibility", "Wind"];
+  let units = ["%", "KM", "KPH"];
   rightInfo.forEach((e, index) => {
     let div = document.createElement("div");
 
-    if(info[5+index] == null || info[5+index] == 0){
-      info[5+index] = "-";
+    if (info[5 + index] == null || info[5 + index] == 0) {
+      info[5 + index] = "-";
     }
-    
+
     div.append(
-      createElement("span","",e),
-      createElement("span","",info[5+index] + ` ${units[index]}`)
-    )
+      createElement("span", "", e),
+      createElement("span", "", info[5 + index] + ` ${units[index]}`),
+    );
     rightDiv.append(div);
   });
 

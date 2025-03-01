@@ -45,16 +45,18 @@ const icons = {
   cloudy,
   clearNight,
   clearDay,
-  search
+  search,
 };
 
 export const findIcon = (iconName) => {
-
-  const formattedString = iconName.split("-").map((word, index) => 
-    index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
-  ).join('');
+  const formattedString = iconName
+    .split("-")
+    .map((word, index) =>
+      index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1),
+    )
+    .join("");
 
   return icons[formattedString];
-}
+};
 
 export default icons;

@@ -35,7 +35,7 @@ export const searchWeather = async (search) => {
       data.currentConditions.visibility,
       data.currentConditions.windspeed,
     ];
-    console.log(info)
+    console.log(info);
     return info;
   } catch (e) {
     console.error(e);
