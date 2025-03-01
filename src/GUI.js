@@ -73,18 +73,28 @@ const getWeather = async (formValue) => {
   const rightDiv = createElement("div", "rightPart");
 
   divContainer.append(
-    createElement("h1", "cityName", `${info[0].split(" ")[0]} ${info[0].split(" ")[2]}`),
+    createElement("h1", "cityName", info[0]),
+    leftDiv,
+    rightDiv
+  );
+  
+  leftDiv.append(
     createElement("p", "date", format(new Date(info[1]), "EEE, MMM d ")),
     createElement("img", "iconImage", "", findIcon(info[2])),
     createElement("h1", "temp", info[3]),
     createElement("p", "conditions", info[4])
   );
 
-  leftDiv.append(
-    createElement("p", "", `Humidity ${info[5]}`),
-    createElement("p", "", `Visibility ${info[6]}`),
-    createElement("p", "", `Wind ${info[7]}`)
-  );
+  let rightInfo = ["Humidity","Visibility","Wind"];
+  
+  rightInfo.forEach((e, index) => {
+    let div = document.createElement("div");
+    div.append(
+      createElement("span","",e),
+      createElement("span","",info[5+index])
+    )
+    rightDiv.append(div);
+  });
 
   divContainer.append(leftDiv, rightDiv);
 
