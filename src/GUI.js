@@ -78,20 +78,33 @@ const getWeather = async (formValue) => {
     rightDiv
   );
   
-  leftDiv.append(
-    createElement("p", "date", format(new Date(info[1]), "EEE, MMM d ")),
-    createElement("img", "iconImage", "", findIcon(info[2])),
-    createElement("h1", "temp", info[3]),
+  let weather = document.createElement("div");
+  let degrees = Object.assign(document.createElement("span"), {className: "temperature"});
+  degrees.append(createElement("h1", "temp", info[3]))
+  degrees.append(createElement("p","a","C"))
+
+  weather.append(
+    degrees,
     createElement("p", "conditions", info[4])
+  )
+  leftDiv.append(
+    createElement("p", "date", format(new Date(), "EEE, MMM d ")),
+    createElement("img", "iconImage", "", findIcon(info[2])),
+    weather
   );
 
   let rightInfo = ["Humidity","Visibility","Wind"];
-  
+  let units = ["%","KM","KPH"]
   rightInfo.forEach((e, index) => {
     let div = document.createElement("div");
+
+    if(info[5+index] == null || info[5+index] == 0){
+      info[5+index] = "-";
+    }
+    
     div.append(
       createElement("span","",e),
-      createElement("span","",info[5+index])
+      createElement("span","",info[5+index] + ` ${units[index]}`)
     )
     rightDiv.append(div);
   });

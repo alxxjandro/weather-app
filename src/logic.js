@@ -21,7 +21,7 @@ const searchImage = async (search, index) => {
 export const searchWeather = async (search) => {
   try {
     const response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${search}?key=REB796NNBGFXYLXEKXHT5UNLX`,
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${search}?unitGroup=metric&key=REB796NNBGFXYLXEKXHT5UNLX&contentType=json`,
       { mode: "cors" },
     );
     const data = await response.json();
@@ -35,6 +35,7 @@ export const searchWeather = async (search) => {
       data.currentConditions.visibility,
       data.currentConditions.windspeed,
     ];
+    console.log(info)
     return info;
   } catch (e) {
     console.error(e);
